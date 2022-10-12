@@ -15,4 +15,17 @@ class Mobiles extends Dbase {
         return $query->fetchAll();
     }
 
+    public function getmobile($id) {
+        $query = $this->db->prepare("
+            SELECT *
+            FROM mobiles
+            WHERE mobile_id = ?         
+        ");
+
+        $query->execute([ $id ]);
+
+        return $query->fetch();
+
+    }
+
 }

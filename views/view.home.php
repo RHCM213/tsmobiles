@@ -16,10 +16,7 @@ require("layout/header.php");
                 </div>
             </div>           
         </section>
-     </main>    
-</body>
-</html>
-
+        
 <?php
 require("layout/footer.php");
 ?>
