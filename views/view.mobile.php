@@ -14,7 +14,7 @@ require("layout/header.php");
                 <div><?= $mobile["avg_rating"]; ?></div>
                 <dl style="display: grid; grid-template-columns: 50% auto; font-size: 14px">
                     <dt>Smartphone :</dt>
-                    <dd><?=$mobile["is_smartphone"]; ?></dd>
+                    <dd><?=$icon_boll?></dd>
                     <dt>Tamanho :</dt>
                     <dd><?=$mobile["size"]?></dd>
                     <dt>Peso :</dt>
@@ -24,17 +24,17 @@ require("layout/header.php");
                     <dt>Display(Polegadas) :</dt>
                     <dd><?=$mobile["display_inches"]?></dd>
                     <dt>DualSim :</dt>
-                    <dd><?=$mobile["is_dualsim"]?></dd>
+                    <dd><?=$icon_boll?></dd>
                     <dt>CardSlot :</dt>
-                    <dd><?=$mobile["has_cardslot"]?></dd>
+                    <dd><?=$icon_boll?></dd>
                     <dt>Memórias ROM/RAM :</dt>
                     <dd><?=$mobile["memory_rom_ram"]?></dd>
-                    <dt>Camera :</dt>
-                    <dd><?=$mobile["camera"]?></dd>
-                    <dt>Video :</dt>
-                    <dd id="acceptnull"><?=$mobile["video"]?></dd>
+                    <dt <?=$hide_null?>>Camera :</dt>
+                    <dd <?=$hide_null?>><?=$mobile["camera"]?></dd>
+                    <dt <?=$hide_null?>>Video :</dt>
+                    <dd <?=$hide_null?>><?=$mobile["video"]?></dd>
                     <dt>Bluetooth :</dt>
-                    <dd id="boolValue"><?=$mobile["has_bluetooth"]?></dd>
+                    <dd><?=$icon_boll?></dd>
                     <dt>Battery :</dt>
                     <dd><?=$mobile["battery"]?></dd>
                     <dt>Lançamento :</dt>
