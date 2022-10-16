@@ -5,8 +5,11 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-        <title><?php echo $title; ?> - TSM</title>       
+        <link rel="stylesheet" href="/css/global.css">
         <script type="text/javascript" src="/js/global.js"></script>
+        <title><?php echo $title; ?> - TSM</title>       
+       
+        <style></style>
     </head>
     <body class="w3-brown w3-padding-large" >
         <header class="w3-row w3-padding-large w3-bottombar w3-border-white" role="banner" style="margin-bottom: 100px">
@@ -16,7 +19,7 @@
             <nav class="w3-col s6 w3-right-align" style="text-transform: uppercase">
                 <a href="/">login</a> |
                 <a href="/">logout</a> |
-                <a href="/">regist</a> |
+                <a href="/register">regist</a> |
                 <a href="/">admin</a>   
             </nav>
         </header>

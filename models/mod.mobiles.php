@@ -20,7 +20,7 @@ class Mobiles extends Dbase {
             SELECT mobile_id, mobile_img, mobile_name, unit_sold, 
             is_smartphone, released_date, size, weight, display_resolution, display_inches, 
             platform, is_dualsim, has_cardslot, memory_rom_ram, camera, video, has_bluetooth, 
-            battery, avg_rating
+            battery
             FROM mobiles
             WHERE mobile_id = ?         
         ");

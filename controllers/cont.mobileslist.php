@@ -1,11 +1,11 @@
 <?php
 require("models/mod.mobiles.php");
 
-$model = new Mobiles();
+$title = "Telemóveis mais Vendidos de Sempre";
 
+$model = new Mobiles();
 $mobiles = $model->getmobiles();
 
-$title = "Telemóveis mais Vendidos de Sempre";
 
 //print_r($mobiles);
 
