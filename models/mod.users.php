@@ -28,9 +28,9 @@ class Users extends Dbase {
 
 
         
-    public function getusernames() {
+    public function get_users() {
         $query = $this->db->prepare("
-            SELECT user_id, user_name
+            SELECT user_id, user_name, email
             FROM users
         ");
         

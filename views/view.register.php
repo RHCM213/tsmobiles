@@ -11,7 +11,7 @@ require("layout/header.php");
 
         <div class="w3-row" style="width:60%; margin:auto"> 
             <h2 class="w3-center" style="margin:0"><?= $title ?></h2>
-            <form method="post" action="/register" style="margin-top:40px">
+            <form method="post" action="/register" enctype="multipart/form-data" style="margin-top:40px">
                 <div>
                     <div class="w3-half w3-container">
                         <label>Nome de User
@@ -77,12 +77,12 @@ require("layout/header.php");
                             <input class="w3-input" type="password" name="confirm_password" required minlength="8" maxlength="255">
                         </label>
                     </div>
+                    <div class="w3-container">
+	                    <label class="w3-button w3-text-brown w3-sand w3-round-large w3-hover-dark-grey w3-margin-top"> Foto Perfil (max.3MB) 
+        	            <input type="file" name="user_photo" required accept="image/jpeg" total-max-size="3145728" style="display: none">
+                         </label>
+                    </div>   
                 </div>
-                <div class="w3-container">
-                    <label class="w3-button w3-text-brown w3-sand w3-round-large w3-hover-dark-grey w3-margin-top"> Foto Perfil 
-                        <input type="file" name="user_photo" accept="image/jpeg, image/png" total-max-size="1572864" style="display: none">
-                    </label>
-                </div>   
                 <div class="w3-center" style="margin-top:30px">
                     <button class="w3-text-brown w3-sand w3-button w3-round-large w3-hover-dark-grey w3-margin-top" type="submit" name="send">Confirmar Registo</button>
                 </div>

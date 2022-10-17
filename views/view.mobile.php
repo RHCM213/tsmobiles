@@ -25,7 +25,7 @@ require("layout/header.php");
                         <button type="submit" name="send">Avaliar</button>
                     </label>
                     </form>   -->
-                    <form id="rating-form" method="post" action="/mobile">
+                <form id="rating-form" method="post" action="/mobile" data-mobile_id="<?= $id ?>">
                         <input type="button" class="w3-hover-text-orange" value="&#9734;" data-urating="1">
                         <input type="button" class="w3-hover-text-orange" value="&#9734;" data-urating="2">
                         <input type="button" class="w3-hover-text-orange" value="&#9734;" data-urating="3">

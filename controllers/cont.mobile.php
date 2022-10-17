@@ -28,13 +28,13 @@ $icon_boll = $mobile["is_smartphone"] ||
 
 
 if( $_SERVER["REQUEST_METHOD"] === "POST") {
-    header("Content-Type: application/json");
+    
     
     $user_rating = json_decode( file_get_contents("php://input"), true );
-    
+    var_dump($user_rating); 
 }
 
-//var_dump($user_rating);
+
 
 
 

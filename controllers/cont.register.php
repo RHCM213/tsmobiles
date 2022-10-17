@@ -8,16 +8,24 @@ $countries = $model->getcountries();
 
 require("models/mod.users.php");    
 $modelUsers = new Users();
-$usernames = $modelUsers->getusernames();
+$users = $modelUsers->get_users();
 
 //arrays p/ validação
 foreach($countries as $country) {
     $countryCodes[] = $country["country_code"];
 }
 
-foreach($usernames as $username) {
-    $userNames[] = $username["user_name"];
+$usernames = [];
+$emails = [];
+
+foreach($users as $user) {
+    $usernames[] = $user["user_name"];
+    $emails[] = $user["email"];
 }
+
+
+
+
 
 if(isset($_POST["send"])) {
     //validação
@@ -38,14 +46,26 @@ if(isset($_POST["send"])) {
         filter_var($_POST["email"], FILTER_VALIDATE_EMAIL) &&
         mb_strlen($_POST["password"]) >= 8 &&
         mb_strlen($_POST["password"]) <= 255 &&
-        $_POST["password"] === $_POST["confirm_password"]
+        $_POST["password"] === $_POST["confirm_password"] &&
+        $_FILES["user_photo"]["error"] === 0 &&
+        $_FILES["user_photo"]["type"] === "image/jpeg" &&
+        $_FILES["user_photo"]["size"] > 0 &&
+        $_FILES["user_photo"]["size"] < 3 * 1024 * 1024
+    
     ) {
        
-        if(!empty(array($userNames)) || in_array($_POST["user_name"], $userNames) == false) {
+        if(in_array($_POST["email"], $emails) == false && in_array($_POST["user_name"], $usernames) == false) {
+            
+
+            $filename = "userphoto_" . mt_rand(10000000, 99999999) . ".jpg";       
+            move_uploaded_file($_FILES["user_photo"]["tmp_name"], "./images/img_profile/" . $filename);
+
+            $_POST["user_photo"] = "/images/img_profile/" . $filename;
             
             $user_id = $modelUsers->create($_POST);
 
-            if(!empty($user_id)) {
+        
+            if(!empty($user_id)) {                 
                 $_SESSION["user_id"] = $user_id;
                 header("Location: /");
             }
@@ -55,7 +75,7 @@ if(isset($_POST["send"])) {
                 
         }
         else {
-            $support_msg = "Escolha outro Nome de User!";
+            $support_msg = "Nome de User ou Email já em uso!";
         }
         
     
@@ -68,3 +88,5 @@ if(isset($_POST["send"])) {
 
 
 require("views/view.register.php");
+
+
