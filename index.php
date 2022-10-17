@@ -9,7 +9,7 @@ $controller = $url_parts[1] ?: "home";
 $id = $url_parts[2] ?? "";
 
 
-$controllers = ["home", "mobileslist", "mobile", "register", "404error"];
+$controllers = ["home", "mobileslist", "mobile", "register", "404error", "400error", "login", "logout"];
 
 if (!in_array($controller, $controllers)){
     http_response_code(404);

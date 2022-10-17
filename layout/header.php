@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="/css/global.css">
         <script type="text/javascript" src="/js/global.js"></script>
-        <title><?php echo $title; ?> - TSM</title>       
+        <title><?= $title; ?> - TSM</title>       
        
         <style></style>
     </head>
@@ -17,10 +17,21 @@
                 <h1><a href="/"><img src="/images/logo_tsm.svg" alt="tsm logo" style="width:40%"></a></h1>
             </div>
             <nav class="w3-col s6 w3-right-align" style="text-transform: uppercase">
-                <a href="/">login</a> |
-                <a href="/">logout</a> |
+        <?php
+            if(isset($_SESSION["user_id"])) {
+                echo '<a href="/logout">logout</a> |';
+            }
+            else {
+                echo '
+                <a href="/login">login</a> |
                 <a href="/register">regist</a> |
-                <a href="/">admin</a>   
+                ';
+            }
+        ?>
+                <a href="/admin">admin</a>   
             </nav>
         </header>
         <main>
+
+
+    

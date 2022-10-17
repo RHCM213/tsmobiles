@@ -1,7 +1,7 @@
 <?php
 require("models/mod.countries.php");
 
-$title = "Registo";
+$title = "Criar Registo";
 
 $model = new Countries();
 $countries = $model->getcountries();
@@ -41,7 +41,7 @@ if(isset($_POST["send"])) {
         $_POST["password"] === $_POST["confirm_password"]
     ) {
        
-        if(in_array($_POST["user_name"], $userNames) == false){
+        if(!empty(array($userNames)) || in_array($_POST["user_name"], $userNames) == false) {
             
             $user_id = $modelUsers->create($_POST);
 

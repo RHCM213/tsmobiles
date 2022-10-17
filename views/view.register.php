@@ -10,8 +10,8 @@ require("layout/header.php");
 
 
         <div class="w3-row" style="width:60%; margin:auto"> 
-            <h2 class="w3-center" style="margin:0">Efectuar Registo</h2>
-            <form class="regis-form" method="post" action="/register" style="margin-top:40px">
+            <h2 class="w3-center" style="margin:0"><?= $title ?></h2>
+            <form method="post" action="/register" style="margin-top:40px">
                 <div>
                     <div class="w3-half w3-container">
                         <label>Nome de User

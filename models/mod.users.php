@@ -41,5 +41,26 @@ class Users extends Dbase {
     }
 
 
+    public function login($data) {
+        $query = $this->db->prepare("
+            SELECT user_id, password
+            FROM users
+            WHERE email = ? OR user_name = ?
+        ");
+        
+        $query->execute([
+            $data["login_ref"],
+            $data["login_ref"]
+        ]);
+
+        $user = $query->fetch();
+
+        if(!empty($user) && 
+        password_verify($data["password"], $user["password"])){
+            return $user;
+        }
+        
+        return [];   
+    }
 
 }

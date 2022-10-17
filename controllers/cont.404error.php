@@ -1,7 +1,8 @@
 <?php
 
-$title = "#404 - Página não encontrada";
+$title = "Erro #404";
+$alert = "#404 - Página não encontrada!";
 
-require("views/view.404error.php");
+require("views/view.error.php");
 
 
