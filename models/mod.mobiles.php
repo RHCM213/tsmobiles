@@ -3,7 +3,7 @@ require_once("models/mod.dbase.php");
 
 class Mobiles extends Dbase {
     
-    public function getmobiles() {
+    public function getMobiles() {
         $query = $this->db->prepare("
             SELECT mobile_id, mobile_name, released_date, unit_sold, avg_rating
             FROM mobiles
@@ -15,7 +15,7 @@ class Mobiles extends Dbase {
         return $query->fetchAll();
     }
 
-    public function getmobile($id) {
+    public function getMobile($id) {
         $query = $this->db->prepare("
             SELECT mobile_id, mobile_img, mobile_name, unit_sold, 
             is_smartphone, released_date, size, weight, display_resolution, display_inches, 
@@ -28,7 +28,51 @@ class Mobiles extends Dbase {
         $query->execute([ $id ]);
 
         return $query->fetch();
+    }
+
+
+    public function avgRating() {
+        $query = $this->db->prepare("
+            UPDATE mobiles 
+            SET avg_ratings = (SELECT AVG(rating)
+            FROM ratings
+            WHERE ratings.mobile_id = mobiles.mobile_id
+            GROUP BY mobile_id);      
+        ");
+
+        $query->execute();
+    }
+   
+    
+    public function getAdminMobiles() {
+        $query = $this->db->prepare("
+            SELECT mobile_id, mobile_name
+            FROM mobiles
+            ORDER BY mobile_name
+        ");
+
+        $query->execute();
+
+        return $query->fetchAll();
+    }
+
+
+    public function delAdminMobiles($mobile_id) {
+        $query = $this->db->prepare("
+            DELETE
+            FROM mobiles
+            WHERE mobile_id = ?
+        ");
+
+        $query->execute([$mobile_id]);
 
     }
+
+
+
+
+
+
+
 
 }

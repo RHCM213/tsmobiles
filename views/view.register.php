@@ -51,7 +51,8 @@ require("layout/header.php");
                 <div>
                     <div class="w3-third w3-container">                      
                         <label> Pais
-                            <select class="w3-input" name="country">
+                            <select class="w3-input" name="country_code" required>
+                                <option value="" disabled selected></option>
             <?php
                 foreach($countries as $country) {
                     echo '<option value="' .$country["country_code"]. '">' . $country["country_name"] . '</option>';
@@ -79,7 +80,7 @@ require("layout/header.php");
                     </div>
                     <div class="w3-container">
 	                    <label class="w3-button w3-text-brown w3-sand w3-round-large w3-hover-dark-grey w3-margin-top"> Foto Perfil (max.3MB) 
-        	            <input type="file" name="user_photo" required accept="image/jpeg" total-max-size="3145728" style="display: none">
+        	            <input type="file" name="user_photo" required accept="image/jpeg" total-max-size="3145728" style="display:none">
                          </label>
                     </div>   
                 </div>

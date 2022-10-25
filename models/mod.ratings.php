@@ -3,18 +3,24 @@ require_once("models/mod.dbase.php");
 
 class Ratings extends Dbase {
     
-    public function getrating() {
+    public function getRating($mobile_id) {
         $query = $this->db->prepare("
-            SELECT mobile_id, user_id, rating
+            SELECT mobile_id, rating
             FROM ratings
+            WHERE mobile_id = ? AND user_id = ?
         ");
 
-        $query->execute();
+        $query->execute([
+            $mobile_id,
+            $_SESSION["user_id"]
+        ]);
 
-        return $query->fetchAll();
+        return $query->fetch();
     }
 
-    public function create($data) {
+
+    
+    public function createRating($mobile_id, $data) {
         $query = $this->db->prepare("
             INSERT INTO ratings
             (mobile_id, user_id, rating)
@@ -22,11 +28,10 @@ class Ratings extends Dbase {
         ");
 
         $query->execute([
-            $data["rating"],
-            $data["rating"],
+            $mobile_id,
+            $_SESSION["user_id"],
             $data["rating"]]);
 
-        return $query->fetchAll();
     }
 
 }

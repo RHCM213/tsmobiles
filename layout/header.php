@@ -11,24 +11,28 @@
        
         <style></style>
     </head>
-    <body class="w3-brown w3-padding-large" >
+    <body class="w3-brown w3-padding-large">
         <header class="w3-row w3-padding-large w3-bottombar w3-border-white" role="banner" style="margin-bottom: 100px">
             <div class="w3-col s6 w3-left-align">
                 <h1><a href="/"><img src="/images/logo_tsm.svg" alt="tsm logo" style="width:40%"></a></h1>
             </div>
             <nav class="w3-col s6 w3-right-align" style="text-transform: uppercase">
         <?php
-            if(isset($_SESSION["user_id"])) {
+            if(isset($_SESSION["user_id"]) && $_SESSION["is_admin"]) {
                 echo '<a href="/logout">logout</a> |';
+                echo '<a href="/admin">admin</a>';
+            }
+            else if(isset($_SESSION["user_id"])){
+                echo '<a href="/logout">logout</a>';
+                
             }
             else {
                 echo '
                 <a href="/login">login</a> |
-                <a href="/register">regist</a> |
+                <a href="/register">regist</a>
                 ';
             }
-        ?>
-                <a href="/admin">admin</a>   
+        ?>  
             </nav>
         </header>
         <main>

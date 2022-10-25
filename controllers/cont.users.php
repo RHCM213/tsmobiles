@@ -1,52 +1,72 @@
 <?php
+$user_id=$id; 
+
+
+$title = "Editar User";
+
+require("models/mod.users.php");
+
+$model = new Users();
+$user = $model->getUser($id);
+
+
+$check_admin = $user["is_admin"] == 0 ? "" : "checked";
+
+
 require("models/mod.countries.php");
 
-$title = "Criar Registo";
+$modelC = new Countries();
+$countries = $modelC->getCountries();
 
-$model = new Countries();
-$countries = $model->getCountries();
 
-require("models/mod.users.php");    
-$modelUsers = new Users();
-$users = $modelUsers->getUsers();
 
-//arrays p/ validação
+
+
+
+/* 
+
 foreach($countries as $country) {
     $countryCodes[] = $country["country_code"];
 }
 
+$users = $model->getUsers();
+
 $usernames = [];
 $emails = [];
 
-foreach($users as $user) {
-    $usernames[] = $user["user_name"];
-    $emails[] = $user["email"];
+foreach($users as $usr) {
+    $usernames[] = $usr["user_name"];
+    $emails[] = $usr["email"];
 }
 
 
 
 
 
-if(isset($_POST["send"])) {
-    //validação
-    if(
+if(isset($_POST["update"])) {
+    if( isset($_POST["user_name"] &&
         mb_strlen($_POST["user_name"]) >= 4 &&
-        mb_strlen($_POST["user_name"]) <= 20 &&
+        mb_strlen($_POST["user_name"]) <= 20 ||
+        isset($_POST["first_name"] &&
         mb_strlen($_POST["first_name"]) >= 3 &&
-        mb_strlen($_POST["first_name"]) <= 30 &&
+        mb_strlen($_POST["first_name"]) <= 30 ||
+        
         mb_strlen($_POST["last_name"]) >= 3 &&
-        mb_strlen($_POST["last_name"]) <= 30 &&
+        mb_strlen($_POST["last_name"]) <= 30 ||
+       
         mb_strlen($_POST["phone"]) <= 9 &&
-        mb_strlen($_POST["phone"]) <= 40 &&
+        mb_strlen($_POST["phone"]) <= 40 ||
+
         mb_strlen($_POST["address"]) >= 4 &&
-        mb_strlen($_POST["address"]) <= 100 &&
+        mb_strlen($_POST["address"]) <= 100 ||
+
         mb_strlen($_POST["postal_code"]) >= 4 &&
-        mb_strlen($_POST["postal_code"]) <= 40 &&
-        in_array($_POST["country_code"], $countryCodes) &&
-        filter_var($_POST["email"], FILTER_VALIDATE_EMAIL) &&
-        mb_strlen($_POST["password"]) >= 8 &&
-        mb_strlen($_POST["password"]) <= 255 &&
-        $_POST["password"] === $_POST["confirm_password"] &&
+        mb_strlen($_POST["postal_code"]) <= 40 ||
+
+        in_array($_POST["country_code"], $countryCodes) ||
+
+        filter_var($_POST["email"], FILTER_VALIDATE_EMAIL) ||
+        FALTA AQUI IS_ADMIN VALIDDDDDDDDDD
         $_FILES["user_photo"]["error"] === 0 &&
         $_FILES["user_photo"]["type"] === "image/jpeg" &&
         $_FILES["user_photo"]["size"] > 0 &&
@@ -85,8 +105,11 @@ if(isset($_POST["send"])) {
     }
 
 }
+ */
 
 
-require("views/view.register.php");
 
 
+
+
+require("views/view.users.php");

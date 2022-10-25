@@ -2,10 +2,11 @@
 require_once("models/mod.dbase.php");
 
 class Users extends Dbase {
+   
     public function create($data) {
         $query = $this->db->prepare("
             INSERT INTO users
-            (user_name, first_name, last_name , phone, address, country, postal_code, email, password, user_photo)
+            (user_name, first_name, last_name , phone, address, country_code, postal_code, email, password, user_photo)
             VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)   
         ");
 
@@ -15,7 +16,7 @@ class Users extends Dbase {
             $data["last_name"],
             $data["phone"],
             $data["address"],
-            $data["country"],
+            $data["country_code"],
             $data["postal_code"],
             $data["email"],
             password_hash($data["password"], PASSWORD_DEFAULT),
@@ -28,10 +29,11 @@ class Users extends Dbase {
 
 
         
-    public function get_users() {
+    public function getUsers() {
         $query = $this->db->prepare("
-            SELECT user_id, user_name, email
+            SELECT user_photo, user_id, user_name, email
             FROM users
+            ORDER BY user_name
         ");
         
         $query->execute();
@@ -41,9 +43,26 @@ class Users extends Dbase {
     }
 
 
+
+    public function getUser($user_id) {
+        $query = $this->db->prepare("
+            SELECT user_photo, user_id, user_name, first_name, last_name, phone, address, country_name, postal_code, email, is_admin
+            FROM users
+            INNER JOIN countries USING (country_code)
+            WHERE user_id = ?
+        ");
+        
+        $query->execute([$user_id]);
+
+        return $query->fetch();
+
+    }
+
+
+
     public function login($data) {
         $query = $this->db->prepare("
-            SELECT user_id, password
+            SELECT user_id, password, is_admin
             FROM users
             WHERE email = ? OR user_name = ?
         ");
@@ -62,5 +81,32 @@ class Users extends Dbase {
         
         return [];   
     }
+
+
+
+    public function update($data) {
+        $query = $this->db->prepare("
+            INSERT INTO users
+            (user_name, first_name, last_name , phone, address, country_code, postal_code, email, is_admin, user_photo)
+            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)   
+        ");
+
+        $query->execute([
+            $data["user_name"],
+            $data["first_name"],
+            $data["last_name"],
+            $data["phone"],
+            $data["address"],
+            $data["country_code"],
+            $data["postal_code"],
+            $data["email"],
+            $data["is_admin"],
+            $data["user_photo"]
+        ]);
+
+    }
+
+
+
 
 }
