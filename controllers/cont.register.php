@@ -1,8 +1,11 @@
 <?php
+require("models/mod.contents.php");
+$modelContt = new Contents();
+$contt_regist = $modelContt->getContents(5, $_SESSION["lang"]);
+
+$title = $contt_regist["title"];
+
 require("models/mod.countries.php");
-
-$title = "Criar Registo";
-
 $model = new Countries();
 $countries = $model->getCountries();
 
@@ -28,7 +31,7 @@ foreach($users as $user) {
 
 
 if(isset($_POST["send"])) {
-    //validação
+
     if(
         mb_strlen($_POST["user_name"]) >= 4 &&
         mb_strlen($_POST["user_name"]) <= 20 &&

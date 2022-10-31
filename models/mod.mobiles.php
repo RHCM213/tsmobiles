@@ -34,10 +34,10 @@ class Mobiles extends Dbase {
     public function avgRating() {
         $query = $this->db->prepare("
             UPDATE mobiles 
-            SET avg_ratings = (SELECT AVG(rating)
+            SET avg_rating = (SELECT AVG(rating)
             FROM ratings
             WHERE ratings.mobile_id = mobiles.mobile_id
-            GROUP BY mobile_id);      
+            GROUP BY mobile_id)     
         ");
 
         $query->execute();
@@ -55,6 +55,41 @@ class Mobiles extends Dbase {
 
         return $query->fetchAll();
     }
+
+
+
+    public function createAdminMobiles($data) {
+        
+        $query = $this->db->prepare("
+            INSERT INTO mobiles
+            (mobile_name, unit_sold, is_smartphone, released_date, 
+            size, weight, display_resolution, display_inches, platform, 
+            is_dualsim, has_cardslot, memory_rom_ram, camera, video,  	
+            has_bluetooth, battery, mobile_img) 
+            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)   
+        ");
+
+        $query->execute([
+            $data["mobile_name"],
+            $data["unit_sold"],
+            $data["is_smartphone"],
+            $data["released_date"],
+            $data["size"],
+            $data["weight"],
+            $data["display_resolution"],
+            $data["display_inches"],
+            $data["platform"],
+            $data["is_dualsim"],
+            $data["has_cardslot"],
+            $data["memory_rom_ram"],
+            $data["camera"],
+            $data["video"],
+            $data["has_bluetooth"],
+            $data["battery"],
+            $data["mobile_img"]            
+        ]);
+    }
+
 
 
     public function delAdminMobiles($mobile_id) {

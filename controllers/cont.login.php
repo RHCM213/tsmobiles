@@ -1,5 +1,11 @@
 <?php
-$title = "Iniciar Sessão";
+
+require("models/mod.contents.php");
+$modelContt = new Contents();
+$contt_login = $modelContt->getContents(4, $_SESSION["lang"]);
+
+$title = $contt_login["title"];
+
 
 if(isset($_POST["send"])) {
     if(

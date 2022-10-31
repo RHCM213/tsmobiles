@@ -8,4 +8,5 @@
         <link rel="stylesheet" href="/css/global.css">
         <script type="text/javascript" src="/js/global.js"></script>
         <title><?= $title; ?> - TSM</title>
+        <link rel="icon" type="image/x-icon" href="/images/favicon.svg">  
     </head>

@@ -5,6 +5,11 @@ if(empty($id) || !is_numeric($id)) {
     exit;
 }
 
+require("models/mod.contents.php");
+$modelContt = new Contents();
+$contt_mobile = $modelContt->getContents(3, $_SESSION["lang"]);
+
+
 require("models/mod.mobiles.php");
 
 $model = new Mobiles();
@@ -17,32 +22,22 @@ if(empty($mobile)) {
 
 $title = $mobile["mobile_name"];
 
-$hide_null = $mobile["camera"] || $mobile["video"]  != NULL ?: 'style="display:none"';
 
-$icon_boll = $mobile["is_smartphone"] || 
-            $mobile["is_dualsim"] || 
-            $mobile["has_cardslot"] ||
-            $mobile["has_bluetooth"] == 1 ? '&#10003;' : '&#10007';
+if(!empty($_SESSION["user_id"])) {
 
+    require("models/mod.ratings.php");
+    $modelRat = new Ratings();
 
-
-
-require("models/mod.ratings.php");
-
-$modelRat = new Ratings();
+    $ratings = $modelRat->getRating($id);
 
 
-if( $_SERVER["REQUEST_METHOD"] === "POST") {
-    $rating = json_decode( file_get_contents("php://input"), true );
-    
-    if(
-        !empty($_POST["txt_reply"]) &&
-        mb_strlen($_POST["txt_reply"]) >= 8 &&
-        mb_strlen($_POST["txt_reply"]) <= 65535
-    ) {
-        $modelRat->createRating($id, $_POST);
+    if( $_SERVER["REQUEST_METHOD"] === "POST") {
+        $rating = json_decode( file_get_contents("php://input"), true );
+        
+        $modelRat->createRating($id, $rating);
 
         $model->avgRating();
+        
     }
      
 }
@@ -50,27 +45,8 @@ if( $_SERVER["REQUEST_METHOD"] === "POST") {
 
   
 
-
-$ratings = $modelRat->getRating($id);
-
-
-
-
-
-
-
 require("models/mod.comments.php");
-
 $modelComm = new Comments();
-
-
-
-
-
-
-
-		
-
 
 
 if(isset($_POST["send_comment"])) {
@@ -97,7 +73,9 @@ if(isset($_POST["send_reply"])) {
     }
 }     
     
-$comments = $modelComm->getComments($id);  
+
+$comments = $modelComm->getComments($id); 
+
 
 
 require("views/view.mobile.php");

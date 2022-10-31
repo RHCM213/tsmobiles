@@ -81,3 +81,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 });
+
+
+
+
+const langBtns = document.querySelectorAll("#lang-form input");
+
+  langBtns.forEach(button => {
+    button.addEventListener("click", () => {
+      fetch("/", {
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json" 
+        },
+        body: JSON.stringify({"lang" : button.dataset.lang})
+      })
+
+      .then(response => response.json())
+      .then(result => console.log(result));
+    });    
+
+  });
+
+      
+
+
+
+
+

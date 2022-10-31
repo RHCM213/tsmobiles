@@ -4,16 +4,16 @@ require("layout/header.php");
 
 
 
-            <h2 class="w3-center" style="text-transform: uppercase">telemóveis com mais de 50 milhões de unidades vendidas</h2>
+            <h2 class="w3-center" style="text-transform: uppercase"><?= $contt_home["item_1"] ?></h2>
             <div class="w3-row" style="width:80%; margin:auto">
                 <table id="mobilelist" class="w3-table-all w3-centered w3-hoverable">
                     <thead>
                         <tr class="w3-sand w3-text-brown" style="text-transform: uppercase">
                             <th class="w3-xlarge" style="padding-left: 8px; padding-top: 2.5px;">&#127894;</th>
-                            <th>modelo</th>
-                            <th>ano</th>
-                            <th>unid vendidas (milhões)</th>
-                            <th>avaliação</th>
+                            <th><?= $contt_moblist["item_1"] ?></th>
+                            <th><?= $contt_moblist["item_2"] ?></th>
+                            <th><?= $contt_moblist["item_3"] ?></th>
+                            <th><?= $contt_moblist["item_4"] ?></th>
                         </tr>
                     </thead>
                     <tbody>          
@@ -36,7 +36,7 @@ require("layout/header.php");
                     </tbody>  
                 </table>
                 <div class="w3-center">
-                    <a href="/" class="w3-text-brown w3-sand w3-button w3-round-large w3-hover-dark-grey w3-margin-top" style="text-transform: uppercase">voltar à home</a>                         
+                    <a href="#top" class="w3-text-brown w3-sand w3-button w3-round-large w3-hover-dark-grey w3-margin-top" style="text-transform: uppercase"><?= $contt_moblist["item_5"] ?></a>                         
                 </div>
             </div>
 

@@ -4,7 +4,7 @@ require("layout/header.php");
 
 <?php
     if(isset($support_msg)) {
-        echo '<p role="alert">' .$support_msg. '</p>';
+        echo '<p role="alert">' . $support_msg . '</p>';
     }
 ?>
 
@@ -14,43 +14,43 @@ require("layout/header.php");
             <form method="post" action="/register" enctype="multipart/form-data" style="margin-top:40px">
                 <div>
                     <div class="w3-half w3-container">
-                        <label>Nome de User
+                        <label><?= $contt_regist["item_4"] ?>
                             <input class="w3-input" type="text" name="user_name" required minlength="4" maxlength="20">
                         </label>
                     </div>
                     <div class="w3-half w3-container"">
-                        <label> Primeiro Nome
+                        <label><?= $contt_regist["item_5"] ?>
                             <input class="w3-input" type="text" name="first_name" required minlength="3" maxlength="30">
                         </label>
                     </div>
                 </div>
                 <div>
                     <div class="w3-half w3-container">
-                        <label> Último Nome
+                        <label><?= $contt_regist["item_6"] ?>
                             <input class="w3-input" type="text" name="last_name" required minlength="3" maxlength="30">
                         </label>
                     </div>
                     <div class="w3-half w3-container">
-                        <label> Telefone
+                        <label><?= $contt_regist["item_7"] ?>
                             <input class="w3-input" type="text" name="phone" required minlength="9" maxlength="40">
                         </label>
                     </div>
                 </div>
                 <div>
                     <div class="w3-twothird w3-container">
-                        <label> Morada
+                        <label><?= $contt_regist["item_8"] ?>
                             <input class="w3-input" type="text" name="address" required minlength="4" maxlength="100">
                         </label>
                     </div>
                     <div class="w3-third w3-container">
-                        <label> Código Postal
+                        <label><?= $contt_regist["item_9"] ?>
                             <input class="w3-input" type="text" name="postal_code" required minlength="4" maxlength="40">
                         </label>
                     </div>
                 </div>
                 <div>
                     <div class="w3-third w3-container">                      
-                        <label> Pais
+                        <label><?= $contt_regist["item_10"] ?>
                             <select class="w3-input" name="country_code" required>
                                 <option value="" disabled selected></option>
             <?php
@@ -69,23 +69,23 @@ require("layout/header.php");
                 </div>
                 <div>
                     <div class="w3-half w3-container">
-                        <label> Password
+                        <label><?= $contt_regist["item_11"] ?>
                             <input class="w3-input" type="password" name="password" required minlength="8" maxlength="255">
                         </label>
                     </div>
                     <div class="w3-half w3-container">
-                        <label> Repetir Password
+                        <label><?= $contt_regist["item_12"] ?>
                             <input class="w3-input" type="password" name="confirm_password" required minlength="8" maxlength="255">
                         </label>
                     </div>
                     <div class="w3-container">
-	                    <label class="w3-button w3-text-brown w3-sand w3-round-large w3-hover-dark-grey w3-margin-top"> Foto Perfil (max.3MB) 
+	                    <label class="w3-button w3-text-brown w3-sand w3-round-large w3-hover-dark-grey w3-margin-top"><?= $contt_regist["item_2"] ?> 
         	            <input type="file" name="user_photo" required accept="image/jpeg" total-max-size="3145728" style="display:none">
                          </label>
                     </div>   
                 </div>
                 <div class="w3-center" style="margin-top:30px">
-                    <button class="w3-text-brown w3-sand w3-button w3-round-large w3-hover-dark-grey w3-margin-top" type="submit" name="send">Confirmar Registo</button>
+                    <button class="w3-text-brown w3-sand w3-button w3-round-large w3-hover-dark-grey w3-margin-top" type="submit" name="send"><?= $contt_regist["item_3"] ?></button>
                 </div>
             </form>
         </div>

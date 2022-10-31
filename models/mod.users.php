@@ -31,7 +31,7 @@ class Users extends Dbase {
         
     public function getUsers() {
         $query = $this->db->prepare("
-            SELECT user_photo, user_id, user_name, email
+            SELECT user_photo, user_id, user_name, email, is_admin
             FROM users
             ORDER BY user_name
         ");
@@ -84,11 +84,13 @@ class Users extends Dbase {
 
 
 
-    public function update($data) {
+    public function update($data, $upduser_id) {
         $query = $this->db->prepare("
-            INSERT INTO users
-            (user_name, first_name, last_name , phone, address, country_code, postal_code, email, is_admin, user_photo)
-            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)   
+            UPDATE users
+            SET user_name = ?, first_name = ?, last_name = ? , phone = ?, 
+            address = ?, country_code = ?, postal_code = ?, email = ?, 
+            is_admin = ?, user_photo = ?
+            WHERE user_id = ? 
         ");
 
         $query->execute([
@@ -101,8 +103,12 @@ class Users extends Dbase {
             $data["postal_code"],
             $data["email"],
             $data["is_admin"],
-            $data["user_photo"]
+            $data["user_photo"],
+            $upduser_id
+            
         ]);
+
+        return $data;
 
     }
 

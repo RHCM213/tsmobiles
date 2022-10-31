@@ -5,23 +5,23 @@ require_once("models/mod.dbase.php");
         
 
 
-        public function getComments($mobile_id){
+        public function getComments($mobile_id) {
             $query= $this-> db ->prepare("
-                SELECT comment_id, user_photo, user_name, comment_txt, comment_date, reply_to
-                FROM comments
-                INNER JOIN users USING (user_id)
-                WHERE mobile_id= ?
+            SELECT comment_id, user_photo, user_name, comment_txt, comment_date, reply_to
+            FROM comments
+            INNER JOIN users USING (user_id)
+            WHERE mobile_id = ?
+            ORDER BY reply_to, comment_id           
             ");
     
-            $query->execute([$mobile_id]);
+            $query->execute([
+                $mobile_id
+            ]);
             
-            $comments= $query->fetchAll();
-    
-            return $comments;
+            return $query->fetchAll();
+
         }
-
-
-
+        
 
 
         public function createComment($data, $mobile_id){

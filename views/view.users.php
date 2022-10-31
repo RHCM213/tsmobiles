@@ -1,18 +1,22 @@
 <?php
 require("layout/basicheader.php");
 require("layout/adminnav.php");
+
+if(isset($support_msg)) {
+    echo '<p role="alert">' . $support_msg . '</p>';
+}
 ?> 
 
             <div class="w3-row" style="width:60%; margin:auto"> 
                 <h2 class="w3-center w3-text-brown" style="margin:0"><?= $title ?></h2>
-                <form method="post" action="/users/<?= $user_id ?>" enctype="multipart/form-data" class="w3-text-brown" style="margin-top:40px">
+                <form method="post" action="/users/<?= $id ?>" enctype="multipart/form-data" class="w3-text-brown" style="margin-top:40px">
                     <div>
                         <div class="w3-half w3-container">
                             <label>Nome de User
                                 <input class="w3-input" type="text" name="user_name" placeholder="<?= $user["user_name"] ?>" minlength="4" maxlength="20">
                             </label>
                         </div>
-                        <div class="w3-half w3-container"">
+                        <div class="w3-half w3-container">
                             <label> Primeiro Nome
                                 <input class="w3-input" type="text" name="first_name" placeholder="<?= $user["first_name"] ?>" minlength="3" maxlength="30">
                             </label>
@@ -73,8 +77,8 @@ require("layout/adminnav.php");
                             </label>
                         </div>   
                     </div>
-                    <div class="w3-center" style="margin-top:30px">
-                        <button class="w3-text-sand w3-red w3-button w3-round-large w3-hover-dark-grey w3-margin-top" type="submit" name="update">Actualizar User</button>
+                    <div class="w3-center" style="display:flex; justify-content:flex-end">
+                        <button class="w3-text-sand w3-red w3-button w3-round-large w3-hover-dark-grey w3-margin-top" type="submit" name="update_user" style="margin-top:7px; font-size:20px; padding:4px 22px">&#8634;</button>
                     </div>
                 </form>
             </div>
