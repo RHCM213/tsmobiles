@@ -1,8 +1,8 @@
 <?php
 require("models/mod.contents.php");
 $model = new Contents();
-$lang = "pt";
 
+$lang = "pt";
 
 if( $_SERVER["REQUEST_METHOD"] === "POST") {
     

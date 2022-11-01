@@ -74,7 +74,9 @@ if(isset($_POST["send_reply"])) {
 }     
     
 
-$comments = $modelComm->getComments($id); 
+$comments = $modelComm->getComments($id);
+
+
 
 
 

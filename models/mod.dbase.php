@@ -13,6 +13,29 @@ class Dbase {
         //Modo não repetição da informação Objecto e Associativo
         $this->db->setAttribute(PDO::ATTR_STRINGIFY_FETCHES, false);
         //Modo 'no stringify' números
-    
+
     }
+
+
+
+    
+    public function sanitizer($data) {
+        foreach($data as $key => $value) {
+            if(is_array($value)) {
+                
+                $data[$key] = $this->sanitizer($value);
+            }
+            else {
+                $data[$key] = htmlspecialchars(strip_tags(trim($value)));   
+            }
+           
+        }
+
+        return $data;
+    } 
+
+
+
+
+
 }

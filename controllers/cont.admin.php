@@ -1,5 +1,10 @@
 <?php
-$section=$id; 
+if(empty($_SESSION["is_admin"])) {
+    http_response_code(401);
+    header("Location: /401error");
+}
+
+$section=$id;
 
 $title = "Área Administrativa";
 
@@ -42,6 +47,8 @@ if(isset($_POST["home_pic"])) {
         $_POST["pic"] = $pathname;
 
         $modelContt->updatePicHome($_POST);
+        header("Location: /");
+        exit;
     }
     
 
@@ -49,6 +56,8 @@ if(isset($_POST["home_pic"])) {
         $_FILES["pic"] = $contt_home["pic"];
 
         $modelContt->updatePicHome($_POST);
+        header("Location: /");
+        exit;
     }
 
     else {

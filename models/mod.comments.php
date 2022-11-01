@@ -10,13 +10,10 @@ require_once("models/mod.dbase.php");
             SELECT comment_id, user_photo, user_name, comment_txt, comment_date, reply_to
             FROM comments
             INNER JOIN users USING (user_id)
-            WHERE mobile_id = ?
-            ORDER BY reply_to, comment_id           
+            WHERE mobile_id = ?           
             ");
     
-            $query->execute([
-                $mobile_id
-            ]);
+            $query->execute([$mobile_id]);
             
             return $query->fetchAll();
 
@@ -25,6 +22,8 @@ require_once("models/mod.dbase.php");
 
 
         public function createComment($data, $mobile_id){
+            $data = $this->sanitizer($data);
+
             $query = $this-> db->prepare("
                 INSERT INTO comments
                 (comment_txt, user_id, mobile_id)
@@ -42,6 +41,8 @@ require_once("models/mod.dbase.php");
         
 
         public function createReply($data, $mobile_id){
+            $data = $this->sanitizer($data);
+            
             $query = $this-> db->prepare("
                 INSERT INTO comments
                 (comment_txt, user_id, mobile_id, reply_to)

@@ -4,6 +4,8 @@ require_once("models/mod.dbase.php");
 class Users extends Dbase {
    
     public function create($data) {
+        $data = $this->sanitizer($data);
+        
         $query = $this->db->prepare("
             INSERT INTO users
             (user_name, first_name, last_name , phone, address, country_code, postal_code, email, password, user_photo)
@@ -85,6 +87,8 @@ class Users extends Dbase {
 
 
     public function update($data, $upduser_id) {
+        $data = $this->sanitizer($data);
+
         $query = $this->db->prepare("
             UPDATE users
             SET user_name = ?, first_name = ?, last_name = ? , phone = ?, 

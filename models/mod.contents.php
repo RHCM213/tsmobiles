@@ -21,7 +21,8 @@ require_once("models/mod.dbase.php");
         
 
         public function updateTxtHome($data, $lang) {
-          
+            $data = $this->sanitizer($data);
+
             $query = $this->db->prepare("
                 UPDATE contents
                 SET item_1 = ?, item_2 = ?
@@ -40,7 +41,8 @@ require_once("models/mod.dbase.php");
         
 
         public function updatePicHome($data) {
-          
+            $data = $this->sanitizer($data);
+            
             $query = $this->db->prepare("
                 UPDATE contents
                 SET pic = ?

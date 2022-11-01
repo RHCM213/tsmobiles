@@ -1,5 +1,6 @@
 
 document.addEventListener("DOMContentLoaded", () => {
+
   //mobileslist links
   const allTr = document.querySelectorAll("#mobilelist tr");
   
@@ -9,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location=urlMobile;
     })
   });
+
 
 
   //rating inputs
@@ -32,35 +34,101 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+  //remove mobile btns
+  const removeMobBtns = document.querySelectorAll(".remove-mobbtn");
 
-  const removeBtns = document.querySelectorAll(".remove-btn");
-
-  removeBtns.forEach(button => {
+  removeMobBtns.forEach(button => {
     button.addEventListener("click", () => {
-        const tr = button.parentNode.parentNode;
-        const removeMob = tr.dataset.toremove;
-        console.log(tr);
-        console.log(removeMob);
+      const trMob = button.parentNode.parentNode;
+      const removeMob = trMob.dataset.mobremove;
+      console.log(trMob);
+      console.log(removeMob);
 
-        fetch("/admin/mobile/" + removeMob, {
-            "method":"DELETE",
-            headers:{
-                "Content-Type":"application/x-www-form-urlencoded"
-            },
-              
-        })
-        .then(response => response.json())
-        .then(result => {
-            tr.remove();
-        })
-        .catch(err => alert("Erro, deve tentar mais tarde"));
+      fetch("/admin/mobile/" + removeMob, {
+          "method":"DELETE",
+          headers:{
+              "Content-Type":"application/x-www-form-urlencoded"
+          },
+            
+      })
+      .then(response => response.json())
+      .then(result => {
+          trMob.remove();
+      })
+      .catch(err => alert("Erro, deve tentar mais tarde"));
 
           
           
-      });
+    });
           
   });
 
+
+
+  //remove comment btns
+  const removeComBtns = document.querySelectorAll(".remove-combtn");
+
+  removeComBtns.forEach(button => {
+    button.addEventListener("click", () => {
+      const trCom = button.parentNode.parentNode;
+      const removeCom = trCom.dataset.comremove;
+      console.log(trCom);
+      console.log(removeCom);
+
+      fetch("/admin/mobile/" + removeCom, {
+          "method":"DELETE",
+          headers:{
+              "Content-Type":"application/x-www-form-urlencoded"
+          },
+            
+      })
+      .then(response => response.json())
+      .then(result => {
+          trCom.remove();
+      })
+      .catch(err => alert("Erro, deve tentar mais tarde"));
+
+          
+           
+    });
+           
+  });
+
+
+
+  //remove users btns
+  const removeUserBtns = document.querySelectorAll(".remove-usrbtn");
+
+  removeUserBtns.forEach(button => {
+    button.addEventListener("click", () => {
+      const trUsr = button.parentNode.parentNode;
+      const removeUser = trUsr.dataset.usrremove;
+      console.log(trUsr);
+      console.log(removeUser);
+
+      fetch("/admin/mobile/" + removeUser, {
+          "method":"DELETE",
+          headers:{
+              "Content-Type":"application/x-www-form-urlencoded"
+          },
+            
+      })
+      .then(response => response.json())
+      .then(result => {
+          console.log(result);
+          trUsr.remove();
+      })
+      .catch(err => alert("Erro, deve tentar mais tarde"));
+
+          
+           
+    });
+           
+  });
+
+
+
+  //show comment btn
   const commentBtn = document.getElementById("comment-btn");
   const commentForm = document.getElementById("comment-form");
   
@@ -84,17 +152,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
+//lang btns
 const langBtns = document.querySelectorAll("#lang-form input");
 
-  langBtns.forEach(button => {
-    button.addEventListener("click", () => {
+  langBtns.forEach(input => {
+    input.addEventListener("click", () => {
       fetch("/", {
         method:"POST",
         headers:{
           "Content-Type":"application/json" 
         },
-        body: JSON.stringify({"lang" : button.dataset.lang})
+        body: JSON.stringify({"lang" : input.dataset.lang})
       })
 
       .then(response => response.json())

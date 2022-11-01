@@ -59,6 +59,7 @@ class Mobiles extends Dbase {
 
 
     public function createAdminMobiles($data) {
+        $data = $this->sanitizer($data);
         
         $query = $this->db->prepare("
             INSERT INTO mobiles
