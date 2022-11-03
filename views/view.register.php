@@ -1,11 +1,12 @@
 <?php
 require("layout/header.php");
-?>
 
-<?php
-    if(isset($support_msg)) {
-        echo '<p role="alert">' . $support_msg . '</p>';
-    }
+if(isset($support_msg)) {
+    echo '<p role="alert" class="w3-center w3-sand w3-text-red" style="font-weight:bold">' .$support_msg. '</p>';
+    
+}
+
+
 ?>
 
 

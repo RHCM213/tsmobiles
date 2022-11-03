@@ -37,13 +37,19 @@
                 }
             ?>  
                 </nav>
-                <div style="display:inline-block; margin-left:10px data">
+            <?php 
+                if ($controller == "home") {
+            ?>
+                <div style="display:inline-block; margin-left:10px">
                     <form id="lang-form" method="post" action="/home">
                         <input type="button" class="w3-button w3-sand w3-round" style="padding:0px; width:28px; height:30px" value=🇵🇹 data-lang="pt">
                         <input type="button" class="w3-button w3-sand w3-round" style="padding:0px; width:28px; height:30px" value=🇬🇧 data-lang="en">
                         <input type="button" class="w3-button w3-sand w3-round" style="padding:0px; width:28px; height:30px" value=🇫🇷 data-lang="fr">
                     </form>
                 </div>
+            <?php
+                }
+            ?>
             </div>
         </header>
         <main>

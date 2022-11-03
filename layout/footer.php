@@ -16,7 +16,7 @@
             }
         ?>
             <p><time><?php setlocale(LC_ALL, "$locale1" , "$locale2"); echo ucwords(strftime("%d %B, %Y")) ?></time> |
-            <a href="mailto:example@example.com">geral@tsm.com</a> | Top Selling Mobiles&#174;</p>            
+            <a href="/msgr" style="font-size:20px; text-decoration:none">&#9993;</a> | Top Selling Mobiles&#174;</p>            
         </footer> 
     </body>
 </html>

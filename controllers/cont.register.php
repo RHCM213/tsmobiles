@@ -1,6 +1,7 @@
 <?php
 require("models/mod.contents.php");
 $modelContt = new Contents();
+$contt_error = $modelContt->getContents(0, $_SESSION["lang"]);
 $contt_regist = $modelContt->getContents(5, $_SESSION["lang"]);
 
 $title = $contt_regist["title"];
@@ -73,22 +74,22 @@ if(isset($_POST["send"])) {
                 header("Location: /");
             }
             else {
-                $support_msg = "User já existe!";
+                $support_msg = $contt_error["item_2"];
             }   
                 
         }
+       
         else {
-            $support_msg = "Nome de User ou Email já em uso!";
+            $support_msg = $contt_error["item_1"] . " " . $contt_error["item_2"] . " / " . $contt_error["item_3"];
         }
         
     
     }
     else {
-        $support_msg = "Erro de preenchimento ou E-mail já registado!";
+        $support_msg = $contt_error["item_5"] . " " . $contt_error["item_7"];
     }
 
 }
-
 
 require("views/view.register.php");
 

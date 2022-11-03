@@ -2,6 +2,7 @@
 
 require("models/mod.contents.php");
 $modelContt = new Contents();
+$contt_error = $modelContt->getContents(0, $_SESSION["lang"]);
 $contt_login = $modelContt->getContents(4, $_SESSION["lang"]);
 
 $title = $contt_login["title"];
@@ -28,7 +29,7 @@ if(isset($_POST["send"])) {
             }
     }
         
-        $support_msg = "Dados incorrectos ou User não registado!";       
+        $support_msg = $contt_error["item_5"] . " / " . $contt_error["item_4"];       
 }
     
 

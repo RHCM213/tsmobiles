@@ -9,7 +9,8 @@ require("layout/adminnav.php");
 if($section == 1 || $section == ""){
 
     if(isset($support_msg)) {
-        echo '<p role="alert">' . $support_msg . '</p>';
+        echo '<p role="alert" class="w3-center w3-red w3-text-sand" style="font-weight:bold">' .$support_msg. '</p>';
+        
     }
 ?>
             <section>
