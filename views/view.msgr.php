@@ -27,9 +27,17 @@ if(isset($support_msg)) {
                             <textarea class="w3-input" name="contacts" required minlength="9" maxlength="400" style="resize:none; height:10vh"></textarea>
                         </label>
                     </div>
+                    <div style="display:flex; align-content:center; justify-content:center; margin-top:8px">
+                        <div class="w3-show-inline-block w3-margin">
+                            <img src="/captcha" alt="captcha">
+                        </div>
+                        <div class="w3-show-inline-block w3-margin">
+                            <input type="text" name="captcha" required autofocus maxlength="4" autocomplete="off" style="text-align:center; font-size:33px; margin:0; width:120px; height:80px">
+                        </div>
+                    </div>            
                 </div>
                 <div class="w3-center">
-                    <button class="w3-text-brown w3-sand w3-button w3-round-large w3-hover-dark-grey" type="submit" name="send_msg" style="margin-top:50px"><?= $contt_msgr["item_2"] ?></button>
+                    <button class="w3-text-brown w3-sand w3-button w3-round-large w3-hover-dark-grey" type="submit" name="send_msg" style="margin-top:20px"><?= $contt_msgr["item_2"] ?></button>
                 </div>         
             </form>
         </div>

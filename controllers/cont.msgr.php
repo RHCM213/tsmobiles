@@ -16,12 +16,16 @@ $contt_msgr = $modelContt->getContents(9, $_SESSION["lang"]);
 if(isset($_POST["send_msg"])) {
 
     if (
+        !empty($_POST["sender"]) &&
+        !empty($_POST["message"]) &&
+        !empty($_POST["contacts"]) &&
         mb_strlen($_POST["sender"]) >= 4 &&
         mb_strlen($_POST["sender"]) <= 90 &&
         mb_strlen($_POST["message"]) >= 8 &&
         mb_strlen($_POST["message"]) <= 3000 &&
         mb_strlen($_POST["contacts"]) >= 9 &&
-        mb_strlen($_POST["contacts"]) <= 400
+        mb_strlen($_POST["contacts"]) <= 400 &&
+        $_POST["captcha"] === $_SESSION["captcha"]
     ) {
     
         $sender = $_POST["sender"];
@@ -49,7 +53,6 @@ if(isset($_POST["send_msg"])) {
                 <p>$contacts</p>
             ";
             $mail->CharSet = "UTF-8";
-
 
             $mail->send();
             $support_msg = $contt_error["item_8"] . " " . $contt_error["item_9"];

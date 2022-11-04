@@ -6,7 +6,7 @@ define("ENV",parse_ini_file(".env"));
 $url_parts = explode("/", $_SERVER["REQUEST_URI"]);
 
 
-$controllers = ["home", "mobileslist", "mobile", "register", "404error", "400error", "login", "logout", "admin", "users", "msgr"];
+$controllers = ["home", "mobileslist", "mobile", "register", "404error", "400error", "login", "logout", "admin", "users", "msgr", "captcha"];
 
 
 $controller = $url_parts[1] ?: "home";
