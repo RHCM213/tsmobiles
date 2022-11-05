@@ -16,7 +16,7 @@ if(isset($support_msg)) {
                 <div>
                     <div class="w3-half w3-container">
                         <label><?= $contt_regist["item_4"] ?>
-                            <input class="w3-input" type="text" name="user_name" required minlength="4" maxlength="20">
+                            <input class="w3-input" type="text" name="user_name" autofocus required minlength="4" maxlength="20">
                         </label>
                     </div>
                     <div class="w3-half w3-container"">

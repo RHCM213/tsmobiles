@@ -1,6 +1,47 @@
 <?php
 require("layout/header.php");
 
+$star_1 = "&#9734;";
+$star_2 = "&#9734;";
+$star_3 = "&#9734;";
+$star_4 = "&#9734;";
+$star_5 = "&#9734;";
+
+
+if(!empty($rating["rating"])) {
+
+    if($rating["rating"] == 1) {
+        $star_1 = "&#9733;";
+    }
+
+    if($rating["rating"] == 2) {
+        $star_1 = "&#9733;";
+        $star_2 = "&#9733;";
+    }
+
+    if($rating["rating"] == 3) {
+        $star_1 = "&#9733;";
+        $star_2 = "&#9733;";
+        $star_3 = "&#9733;";
+    }
+
+    if($rating["rating"] == 4) {
+        $star_1 = "&#9733;";
+        $star_2 = "&#9733;";
+        $star_3 = "&#9733;";
+        $star_4 = "&#9733;";
+    }
+
+    if($rating["rating"] == 5) {
+        $star_1 = "&#9733;";
+        $star_2 = "&#9733;";
+        $star_3 = "&#9733;";
+        $star_4 = "&#9733;";
+        $star_5 = "&#9733;";
+    }
+
+}
+
 ?>
 
       
@@ -15,11 +56,11 @@ require("layout/header.php");
                 <div>
                     <p style="margin-top: 0; margin-bottom: 0;"><?= $contt_mobile["item_1"] ?></p>
                     <form id="rating-form" method="post" action="/mobile/" data-mobid="<?= $id ?>">
-                        <input type="button" class="w3-hover-text-orange" value="&#9734;" data-urating="1">
-                        <input type="button" class="w3-hover-text-orange" value="&#9734;" data-urating="2">
-                        <input type="button" class="w3-hover-text-orange" value="&#9734;" data-urating="3">
-                        <input type="button" class="w3-hover-text-orange" value="&#9734;" data-urating="4">
-                        <input type="button" class="w3-hover-text-orange" value="&#9734;" data-urating="5">
+                        <input type="button" class="w3-hover-text-orange" value=<?= $star_1 ?> data-urating="1">
+                        <input type="button" class="w3-hover-text-orange" value=<?= $star_2 ?> data-urating="2">
+                        <input type="button" class="w3-hover-text-orange" value=<?= $star_3 ?> data-urating="3">
+                        <input type="button" class="w3-hover-text-orange" value=<?= $star_4 ?> data-urating="4">
+                        <input type="button" class="w3-hover-text-orange" value=<?= $star_5 ?> data-urating="5">
                     </form>
                 </div>
 <?php

@@ -1,5 +1,11 @@
 #rating-form input[type=button] {
     background-color: rgb(0, 0, 0, 0);
+    color: white;
     border-style: none;
     font-size: 22px;
+
+}
+
+a {
+    text-decoration: none;
 }

@@ -23,7 +23,7 @@ require("layout/header.php");
                 echo '                    
                         <tr class="w3-text-brown w3-hover-text-red w3-ripple" style="cursor:pointer">
                             <td>' . $i++ . '. </td>
-                            <td class="w3-left-align"><a id="'. $mobile["mobile_id"] .'" style="text-decoration:none" href="/mobile/' . $mobile["mobile_id"] . '">' . $mobile["mobile_name"] . '</a></td>
+                            <td class="w3-left-align"><a id="'. $mobile["mobile_id"] .'" href="/mobile/' . $mobile["mobile_id"] . '">' . $mobile["mobile_name"] . '</a></td>
                             <td>' . $mobile["released_date"] . '</td>
                             <td>' . $mobile["unit_sold"] . '</td>
                             <td>' . $mobile["avg_rating"] . ' &#9733;</td>                   

@@ -14,7 +14,7 @@ if(isset($support_msg)) {
                 <div>
                     <div class="w3-container">
                         <label><?= $contt_msgr["item_3"] ?> 
-                            <input class="w3-input" type="text" name="sender" required minlength="4" maxlength="90">
+                            <input class="w3-input" type="text" name="sender" autofocus required minlength="4" maxlength="90">
                         </label>
                     </div>
                     <div class=" w3-container">
@@ -32,7 +32,7 @@ if(isset($support_msg)) {
                             <img src="/captcha" alt="captcha">
                         </div>
                         <div class="w3-show-inline-block w3-margin">
-                            <input type="text" name="captcha" required autofocus maxlength="4" autocomplete="off" style="text-align:center; font-size:33px; margin:0; width:120px; height:80px">
+                            <input type="text" name="captcha" required maxlength="4" autocomplete="off" style="text-align:center; font-size:33px; margin:0; width:120px; height:80px">
                         </div>
                     </div>            
                 </div>

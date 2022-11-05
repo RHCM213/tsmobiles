@@ -20,7 +20,7 @@ class Ratings extends Dbase {
 
 
     
-    public function createRating($mobile_id, $rating) {
+    public function createRating($mobile_id, $rating_chosen) {
         $query = $this->db->prepare("
             INSERT INTO ratings
             (mobile_id, user_id, rating)
@@ -30,9 +30,27 @@ class Ratings extends Dbase {
         $query->execute([
             $mobile_id,
             $_SESSION["user_id"],
-            $rating
+            $rating_chosen
         ]);
 
     }
+    
+    
+    
+    public function updateRating($mobile_id, $rating_chosen) {
+        $query = $this->db->prepare("
+            UPDATE ratings
+            SET rating = ?
+            WHERE mobile_id = ? && user_id = ? 
+        ");
+
+        $query->execute([
+            $rating_chosen,
+            $mobile_id,
+            $_SESSION["user_id"]
+        ]);
+
+    }
+
 
 }

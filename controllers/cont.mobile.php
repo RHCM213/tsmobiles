@@ -20,30 +20,37 @@ if(empty($mobile)) {
     header("Location: /404error");
 }
 
-$title = $mobile["mobile_name"];
 
+
+require("models/mod.ratings.php");
+$modelRat = new Ratings();
 
 if(!empty($_SESSION["user_id"])) {
+    
+    $rating = $modelRat->getRating($id);
 
-    require("models/mod.ratings.php");
-    $modelRat = new Ratings();
-
-    $ratings = $modelRat->getRating($id);
-
-
-    if( $_SERVER["REQUEST_METHOD"] === "POST") {
-        $rating = json_decode( file_get_contents("php://input"), true );
+    if($_SERVER["REQUEST_METHOD"] === "POST") {
         
-        $modelRat->createRating($id, $rating);
+        $rat = json_decode( file_get_contents("php://input"), true );
+        $rating_chosen = intval($rat);
 
-        $model->avgRating();
+        if(empty($_rating["rating"])) {
+            
+            $modelRat->createRating($id, $rating_chosen);                      
+            $model->avgRating();
+        }
         
-    }
+        else {
+            
+            $modelRat->updateRating($id, $rating_chosen);                      
+            $model->avgRating();
+        }
+
+        $rating = $modelRat->getRating($id);
+    }   
      
 }
 
-
-  
 
 require("models/mod.comments.php");
 $modelComm = new Comments();
@@ -74,11 +81,13 @@ if(isset($_POST["send_reply"])) {
 }     
     
 
+
 $comments = $modelComm->getComments($id);
 
 
 
 
+$title = $mobile["mobile_name"];
 
 require("views/view.mobile.php");
 

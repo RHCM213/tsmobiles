@@ -15,10 +15,10 @@ if(isset($support_msg)) {
                 <div>
                     <div class="w3-half w3-container">
                         <label><?= $contt_login["item_2"] ?>
-                            <input class="w3-input" type="text" name="login_ref">
+                            <input class="w3-input" type="text" name="login_ref" required autofocus>
                         </label>
                     </div>
-                    <div class="w3-half w3-container"">
+                    <div class="w3-half w3-container">
                         <label><?= $contt_login["item_3"] ?>
                             <input class="w3-input" type="password" name="password" required minlength="8" maxlength="255">
                         </label>
