@@ -5,8 +5,8 @@ require("layout/adminnav.php");
               
     
 <?php
-//section 1 » home admin
-if($section == 1 || $section == ""){
+//Section » Home
+if($section == "home" || $section == ""){
 
     if(isset($support_msg)) {
         echo '<p role="alert" class="w3-center w3-red w3-text-sand" style="font-weight:bold">' .$support_msg. '</p>';
@@ -69,8 +69,8 @@ if($section == 1 || $section == ""){
 }
 
 
-//section 2 » mobile insert admin
-else if($section == 2){
+//Section » Insert Mobiles
+if($section == "imobiles"){
 ?>
             <section class="w3-panel w3-center">
                 <form method="post" action="/admin/<?= $section ?>" enctype="multipart/form-data" style="display: inline-grid; grid-template-columns: auto auto auto">                
@@ -172,8 +172,8 @@ else if($section == 2){
 
 
 
-//section 3 » mobile del admin
-else if($section == 3){
+//Section » Del Mobiles
+if($section == "mobiles"){
 ?>
             
             
@@ -206,8 +206,8 @@ else if($section == 3){
 
 
 
-//section 4 » comments del admin
-else if($section == 4){
+//Section »» Del Comments
+if($section == "comments"){
 ?>
   
   
@@ -243,8 +243,8 @@ else if($section == 4){
 } 
 
 
-//section 5 » users del admin
-else {
+//Section »» Del Users
+if($section == "users"){
 ?>
 
 <section class="w3-panel">
@@ -261,7 +261,7 @@ else {
                     <tr class="w3-text-brown w3-ripple" data-usrremove="' . $user["user_id"] .'">
                         <td class="w3-left-align"><img class="w3-circle" src="' . $user["user_photo"] . '" alt="foto de perfil" style="width:60px; height:60px; object-fit:cover"></td>
                         <td class="w3-left-align" style="' . $user_style . '; font-weight:bold; font-size:13px; vertical-align:middle; text-align: center">' . $user["user_name"] . '</td>
-                        <td class="w3-right-align"><a href="/users/'. $user["user_id"] .'" class="w3-text-sand w3-brown w3-button w3-round-large w3-hover-dark-grey w3-margin-top" style="vertical-align:middle">Editar</a></td>   
+                        <td class="w3-right-align"><a href="/users/pt/'. $user["user_id"] .'" class="w3-text-sand w3-brown w3-button w3-round-large w3-hover-dark-grey w3-margin-top" style="vertical-align:middle">Editar</a></td>   
                         <td class="w3-right-align"><button class="remove-usrbtn w3-text-sand w3-red w3-button w3-round-large w3-hover-grey" type="button" style="padding:2px 8px; vertical-align:middle">X</button></td>               
                     </tr>
                     

@@ -3,7 +3,7 @@ require_once("models/mod.dbase.php");
 
 class Ratings extends Dbase {
     
-    public function getRating($mobile_id) {
+    public function getRating($id) {
         $query = $this->db->prepare("
             SELECT mobile_id, rating
             FROM ratings
@@ -11,7 +11,7 @@ class Ratings extends Dbase {
         ");
 
         $query->execute([
-            $mobile_id,
+            $id,
             $_SESSION["user_id"]
         ]);
 
@@ -20,7 +20,7 @@ class Ratings extends Dbase {
 
 
     
-    public function createRating($mobile_id, $rating_chosen) {
+    public function createRating($id, $rating_chosen) {
         $query = $this->db->prepare("
             INSERT INTO ratings
             (mobile_id, user_id, rating)
@@ -28,7 +28,7 @@ class Ratings extends Dbase {
         ");
 
         $query->execute([
-            $mobile_id,
+            $id,
             $_SESSION["user_id"],
             $rating_chosen
         ]);
@@ -37,7 +37,7 @@ class Ratings extends Dbase {
     
     
     
-    public function updateRating($mobile_id, $rating_chosen) {
+    public function updateRating($id, $rating_chosen) {
         $query = $this->db->prepare("
             UPDATE ratings
             SET rating = ?
@@ -46,11 +46,33 @@ class Ratings extends Dbase {
 
         $query->execute([
             $rating_chosen,
-            $mobile_id,
+            $id,
             $_SESSION["user_id"]
         ]);
 
     }
+
+
+
+    public function avgRating($id) {
+        $query = $this->db->prepare("
+            SELECT ROUND(AVG(rating)) as average
+            FROM ratings
+            INNER JOIN mobiles USING(mobile_id)
+            WHERE ? = ratings.mobile_id
+            GROUP BY mobile_id     
+        ");
+
+        $query->execute([$id]);
+
+        return $query->fetch();
+
+    }
+   
+
+
+
+
 
 
 }

@@ -5,7 +5,7 @@ class Mobiles extends Dbase {
     
     public function getMobiles() {
         $query = $this->db->prepare("
-            SELECT mobile_id, mobile_name, released_date, unit_sold, avg_rating
+            SELECT mobile_id, mobile_name, released_date, unit_sold
             FROM mobiles
             ORDER BY unit_sold DESC
         ");
@@ -31,18 +31,6 @@ class Mobiles extends Dbase {
     }
 
 
-    public function avgRating() {
-        $query = $this->db->prepare("
-            UPDATE mobiles 
-            SET avg_rating = (SELECT AVG(rating)
-            FROM ratings
-            WHERE ratings.mobile_id = mobiles.mobile_id
-            GROUP BY mobile_id)     
-        ");
-
-        $query->execute();
-    }
-   
     
     public function getAdminMobiles() {
         $query = $this->db->prepare("
@@ -93,14 +81,14 @@ class Mobiles extends Dbase {
 
 
 
-    public function delAdminMobiles($mobile_id) {
+    public function delAdminMobiles($id) {
         $query = $this->db->prepare("
             DELETE
             FROM mobiles
             WHERE mobile_id = ?
         ");
 
-        $query->execute([$mobile_id]);
+        $query->execute([$id]);
 
     }
 

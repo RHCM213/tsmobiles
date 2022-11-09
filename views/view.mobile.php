@@ -55,7 +55,7 @@ if(!empty($rating["rating"])) {
                 <h2 style="margin:0"><?= $mobile["mobile_name"]; ?></h2>
                 <div>
                     <p style="margin-top: 0; margin-bottom: 0;"><?= $contt_mobile["item_1"] ?></p>
-                    <form id="rating-form" method="post" action="/mobile/" data-mobid="<?= $id ?>">
+                    <form id="rating-form" method="post" action="/mobile/" data-mobid="<?= $lang . "/". $id ?>">
                         <input type="button" class="w3-hover-text-orange" value=<?= $star_1 ?> data-urating="1">
                         <input type="button" class="w3-hover-text-orange" value=<?= $star_2 ?> data-urating="2">
                         <input type="button" class="w3-hover-text-orange" value=<?= $star_3 ?> data-urating="3">
@@ -110,114 +110,73 @@ if(!empty($rating["rating"])) {
 ?>
         <section class="w3-row" style="width:80%; margin:auto; padding:16px;">
             <button id="comment-btn" type="button" class="w3-text-brown w3-sand w3-button w3-round-large w3-hover-dark-grey w3-margin-top" style="text-transform:uppercase;<?= $hide_btn ?>"><?= $contt_mobile["item_2"] ?></button>   
-            <form id="comment-form" method="post" action="/mobile/<?= $id ?>" style="display:none; margin-bottom:30px">
+            <form id="comment-form" method="post" action="/mobile/<?= $lang . "/" . $id ?>" style="display:none; margin-bottom:30px">
                 <div>
-                    <textarea name="txt_comment" required style="resize:none; width:100%; height:30vh; margin-top:15px"></textarea>
+                    <textarea class="w3-sand w3-text-brown" name="txt_comment" required style="resize:none; width:100%; height:30vh; margin-top:15px"></textarea>
                 </div>
                 <div style="display:flex; justify-content:flex-end">
                     <button id="confirm-btn" class="w3-text-sand w3-red w3-button w3-round-large w3-hover-grey" type="submit" name="send_comment" style="margin-top:8px"><?= $contt_mobile["item_4"] ?></button>
                 </div>
             </form>      
-            
-<?php
-
-    foreach($comments as $comment) {
-        if ($comment["reply_to"] != 0) {
-            $comm_style = "border:3px solid white; padding:10px; background-color:rgb(255,255,255,0.1); margin-top:15px; width:80%";
-        }
-
-        else {            
-            $comm_style = "border:3px solid white; padding:10px; background-color:rgb(255,255,255,0.1); margin-top:7px; width:100%";
-        }
-
-        $replies = [];
-    
-        if ($comment["reply_to"] == 0) {
-            
-            foreach($comments as $reply){
-                
-
-                if($reply["reply_to"] == $comment["comment_id"]) {
-                        
-                    $replies[] = $reply;
-                                          
-                }
-            }
-        }
-
-        
-    $comment["replies"] = $replies;  
-    print_r($comment["replies"]); 
-}          
-
-?>    
+              
     <?php
 
-    foreach($comments as $comment){
+    foreach($comments_with_replies as $comment){
             
      ?>
             <div style="display:flex; flex-direction:column; align-items:flex-end; width:100%">      
-                <div class="w3-round-xlarge" style="<?= $comm_style ?>">
+                <div class="w3-round-xlarge" style="border:3px solid white; padding:10px; background-color:rgb(255,255,255,0.1); margin-top:15px; width:100%">
                     <div class="w3-left w3-margin-right">               
                         <img class="w3-circle" src="<?= $comment["user_photo"] ?>" alt="foto de perfil" style="width:60px; height:60px; object-fit:cover">
                     </div>
-                    <div><span style="font-weight:bold"><?= $comment["user_name"] ?></span> info x</div>
+                    <div style="font-weight:bold"><?= $comment["user_name"] ?></div>
                     <div class="w3-container">
                         <p><?= $comment["comment_txt"] ?></p>
                         <time><?= date("j M Y H:i", strtotime($comment["comment_date"])) ?></time>
                     </div> 
                     <div>
-                        <button class="reply-btn" data-commid="<?= $comment["comment_id"] ?>" style="background:none; color:inherit; font-weight:bold; border:none; cursor:pointer"><?= $contt_mobile["item_3"] ?></button>
+                        <button class="reply-btn" style="background:none; color:inherit; font-weight:bold; border:none; cursor:pointer; margin-left:16px" data-commid="<?= $comment["comment_id"] ?>"><?= $contt_mobile["item_3"] ?></button>
                     </div>                              
                 </div>
-                <form class="reply-form" method="post" action="/mobile/<?= $mobile["mobile_id"]?>" style="display:none">
-                    <div>                           
-                        <textarea name="txt_reply" required ></textarea>
+                <form class="reply-form" method="post" action="/mobile/<?= $lang . "/" . $mobile["mobile_id"]?>" style="display:none; width:100%" data-formrep="<?= $comment["comment_id"] ?>">
+                    <div style="display:flex; justify-content:flex-end">                           
+                        <textarea class="w3-sand w3-text-brown" name="txt_reply" required style="resize:none; width:80%; height:30vh; margin-top:15px"></textarea>
                     </div>
-                    <div>
+                    <div style="display:flex; justify-content:flex-end">
                         <input type="hidden" name="comment_id" value="<?= $comment["comment_id"] ?>">
-                        <button class="confirmrep-btn" type="submit" name="send_reply"><?= $contt_mobile["item_4"] ?></button>
+                        <button class="confirmrep-btn w3-text-red w3-sand w3-button w3-round-large w3-hover-grey" type="submit" name="send_reply" style="margin:8px 0 8px 0;"><?= $contt_mobile["item_4"] ?></button>
                     </div>
-                </form>  
-    <?php
+                </form> 
+            </div> 
 
-        foreach($comment["replies"] as $reply){
-    
+    <?php
+        if(!empty($comment["replies"])) {
+            foreach($comment["replies"] as $reply){
+       
     ?>               
-                <div>      
-                    <div class="w3-round-xlarge" style="<?= $comm_style ?>">
-                        <div class="w3-left w3-margin-right">               
-                            <img class="w3-circle" src="<?= $reply["user_photo"] ?>" alt="foto de perfil" style="width:60px; height:60px; object-fit:cover">
-                        </div>
-                        <div><span style="font-weight:bold"><?= $reply["user_name"] ?></span> info x</div>
-                        <div class="w3-container">
-                            <p><?= $reply["comment_txt"] ?></p>
-                            <time><?= date("j M Y H:i", strtotime($reply["comment_date"])) ?></time>
-                        </div> 
-                        <div>
-                            <button class="reply-btn" data-commid="<?= $reply["comment_id"] ?>" style="background:none; color:inherit; font-weight:bold; border:none; cursor:pointer"><?= $contt_mobile["item_3"] ?></button>
-                        </div>                              
+            <div style="display:flex; flex-direction:column; align-items:flex-end; width:100%">      
+                <div class="w3-round-xlarge" style="border:3px solid white; padding:10px; background-color:rgb(255,255,255,0.1); margin-top:7px; width:80%">
+                    <div class="w3-left w3-margin-right">               
+                        <img class="w3-circle" src="<?= $reply["user_photo"] ?>" alt="foto de perfil" style="width:60px; height:60px; object-fit:cover">
                     </div>
-                    <form class="reply-form" method="post" action="/mobile/<?= $mobile["mobile_id"]?>" style="display:none">
-                        <div>                           
-                            <textarea name="txt_reply" required ></textarea>
-                        </div>
-                        <div>
-                            <input type="hidden" name="comment_id" value="<?= $reply["comment_id"] ?>">
-                            <button class="confirmrep-btn" type="submit" name="send_reply"><?= $contt_mobile["item_4"] ?></button>
-                        </div>
-                    </form>  
+                    <div><span style="font-weight:bold"><?= $reply["user_name"] ?></span> &#8618; <?= $comment["user_name"] ?>
+                    </div>
+                    <div class="w3-container">
+                        <p><?= $reply["comment_txt"] ?></p>
+                        <time><?= date("j M Y H:i", strtotime($reply["comment_date"])) ?></time>
+                    </div>                             
                 </div>
-            
-                
-<?php
+            </div>
+<?php       
+          
+            }
         
-        }
+        }  
             
-    }
+    } 
                  
 ?>                 
-            </div>
+            
         </section>
         <div class="w3-center">
             <a href="/mobileslist" class="w3-text-brown w3-sand w3-button w3-round-large w3-hover-dark-grey w3-margin-top" style="text-transform: uppercase"><?= $contt_mobile["item_5"] ?></a>                         

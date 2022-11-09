@@ -1,19 +1,27 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  //mobileslist links
+
+
+
+//# MOBILESLIST
+
+  //MOBILESLIST_links
   const allTr = document.querySelectorAll("#mobilelist tr");
   
   allTr.forEach(tr => { 
     tr.addEventListener("click", () => {
     const urlMobile = tr.querySelector("a").href;
-    window.location=urlMobile;
+    window.location = urlMobile;
     })
   });
 
 
 
-  //rating inputs
+
+//# MOBILE
+
+  //MOBILE_rating inputs
   const btnInputs = document.querySelectorAll("#rating-form input");
   
   btnInputs.forEach(input => {
@@ -28,13 +36,74 @@ document.addEventListener("DOMContentLoaded", () => {
       })
 
       .then(response => response.json())
-      .then(result => console.log(result));
+      .then(result => {           
+        window.location.reload();
+        console.log(result)      
+      });
+    
     });    
   });  
 
 
+  
+  //MOBILE_show comment form
+  const commentBtn = document.getElementById("comment-btn");
+  const commentForm = document.getElementById("comment-form");
 
-  //remove mobile btns
+  if(commentBtn) {
+      commentBtn.addEventListener("click", () => {      
+          commentForm.style.display = "block";        
+      });
+  }
+   
+
+  //MOBILE_hide comment form
+  const confirmBtn = document.getElementById("confirm-btn");
+  
+  if(confirmBtn) {
+      confirmBtn.addEventListener("click", () => {
+          commentForm.style.display = "none";
+      });
+  }
+
+
+  //MOBILE_show reply form
+  const replyBtn = document.querySelectorAll(".reply-btn");
+  const replyForm = document.querySelectorAll(".reply-form");
+  
+  if(replyBtn) {
+    replyBtn.forEach(button => {
+      const btnId = button.dataset.commid;
+      button.addEventListener("click", () => {
+        replyForm.forEach(reply => { 
+          if (btnId == reply.dataset.formrep) {
+            reply.style.display = "block";
+          }; 
+        }); 
+      });
+    });
+  }
+
+  //MOBILE_hide reply form
+  const confirmReplyBtn = document.querySelectorAll(".confirmrep-btn");
+  
+  if(confirmReplyBtn) {
+    confirmReplyBtn.forEach(button => {
+      button.addEventListener("click", () => {
+        replyForm.forEach(form => { 
+          form.style.display = "none";
+        });
+      }); 
+    });
+  }
+
+
+
+
+//# ADMIN
+
+
+  //ADMIN_remove mobile btns
   const removeMobBtns = document.querySelectorAll(".remove-mobbtn");
 
   removeMobBtns.forEach(button => {
@@ -44,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log(trMob);
       console.log(removeMob);
 
-      fetch("/admin/mobile/" + removeMob, {
+      fetch("/admin/mobiles/" + removeMob, {
           "method":"DELETE",
           headers:{
               "Content-Type":"application/x-www-form-urlencoded"
@@ -53,21 +122,20 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .then(response => response.json())
       .then(result => {
+          console.log(result);
           trMob.remove();
       })
       .catch(err => alert("Erro, deve tentar mais tarde"));
-
-          
-          
+       
     });
           
   });
 
 
 
-  //remove comment btns
+  //ADMIN_remove comment btns
   const removeComBtns = document.querySelectorAll(".remove-combtn");
-
+  if(removeComBtns) {
   removeComBtns.forEach(button => {
     button.addEventListener("click", () => {
       const trCom = button.parentNode.parentNode;
@@ -75,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log(trCom);
       console.log(removeCom);
 
-      fetch("/admin/mobile/" + removeCom, {
+      fetch("/comments/" + removeCom, {
           "method":"DELETE",
           headers:{
               "Content-Type":"application/x-www-form-urlencoded"
@@ -84,19 +152,19 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .then(response => response.json())
       .then(result => {
+          console.log(result);
           trCom.remove();
       })
-      .catch(err => alert("Erro, deve tentar mais tarde"));
-
-          
+      .catch(err => alert("Erro, deve tentar mais tarde"));         
            
     });
            
   });
+  }
 
 
 
-  //remove users btns
+  //ADMIN_remove user btns
   const removeUserBtns = document.querySelectorAll(".remove-usrbtn");
 
   removeUserBtns.forEach(button => {
@@ -106,7 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log(trUsr);
       console.log(removeUser);
 
-      fetch("/admin/mobile/" + removeUser, {
+      fetch("/admin/users/" + removeUser, {
           "method":"DELETE",
           headers:{
               "Content-Type":"application/x-www-form-urlencoded"
@@ -118,9 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
           console.log(result);
           trUsr.remove();
       })
-      .catch(err => alert("Erro, deve tentar mais tarde"));
-
-          
+      .catch(err => alert("Erro, deve tentar mais tarde"));          
            
     });
            
@@ -128,23 +194,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-  //show comment btn
-  const commentBtn = document.getElementById("comment-btn");
-  const commentForm = document.getElementById("comment-form");
-  
-  commentBtn.addEventListener("click", () => {
-    if (commentForm.style.display == "none") {
-      commentForm.style.display = "block";
-    }
-  });
 
-  const confirmBtn = document.getElementById("confirm-btn");
-  
-  confirmBtn.addEventListener("click", () => {
-    if (commentForm.style.display == "block") {
-      commentForm.style.display = "none";
-    }
-  });
+
+
+
+
+
 
 
 
@@ -152,28 +207,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-//lang btns
-const langBtns = document.querySelectorAll("#lang-form input");
-
-  langBtns.forEach(input => {
-    input.addEventListener("click", () => {
-      fetch("/", {
-        method:"POST",
-        headers:{
-          "Content-Type":"application/json" 
-        },
-        body: JSON.stringify({"lang" : input.dataset.lang})
-      })
-
-      .then(response => response.json())
-      .then(result => console.log(result));
-    });    
-
-  });
 
       
-
-
+ 
 
 
 

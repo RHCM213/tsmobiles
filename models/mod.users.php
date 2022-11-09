@@ -119,4 +119,17 @@ class Users extends Dbase {
 
 
 
+    public function delAdminUsers($id) {
+        $query = $this->db->prepare("
+            DELETE
+            FROM users
+            WHERE user_id = ?
+        ");
+
+        $query->execute([$id]);
+
+    }
+
+
+
 }

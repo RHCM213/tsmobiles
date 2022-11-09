@@ -9,7 +9,7 @@ if(isset($support_msg)) {
 
             <div class="w3-row" style="width:60%; margin:auto"> 
                 <h2 class="w3-center w3-text-brown" style="margin:0"><?= $title ?></h2>
-                <form method="post" action="/users/<?= $id ?>" enctype="multipart/form-data" class="w3-text-brown" style="margin-top:40px">
+                <form method="post" action="/users/pt/<?= $id ?>" enctype="multipart/form-data" class="w3-text-brown" style="margin-top:40px">
                     <div>
                         <div class="w3-half w3-container">
                             <label>Nome de User

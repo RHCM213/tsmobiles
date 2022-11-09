@@ -75,6 +75,17 @@ require_once("models/mod.dbase.php");
 
 
 
+        public function delAdminComments($id) {
+            $query = $this->db->prepare("
+                DELETE
+                FROM comments
+                WHERE comment_id = ?
+            ");
+    
+            $query->execute([$id]);
+    
+        }
+
 
 
     }

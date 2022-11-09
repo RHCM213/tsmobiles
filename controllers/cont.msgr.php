@@ -9,8 +9,10 @@ $mail = new PHPMailer();
 
 require("models/mod.contents.php");
 $modelContt = new Contents();
-$contt_error = $modelContt->getContents(0, $_SESSION["lang"]);
-$contt_msgr = $modelContt->getContents(9, $_SESSION["lang"]);
+$contt_error = $modelContt->getContents(0, $lang);
+$contt_msgr = $modelContt->getContents(9, $lang);
+$contt_home = $modelContt->getContents(1, $lang);
+
 
 
 if(isset($_POST["send_msg"])) {

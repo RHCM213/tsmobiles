@@ -1,8 +1,10 @@
 <?php
 require("models/mod.contents.php");
 $modelContt = new Contents();
-$contt_error = $modelContt->getContents(0, $_SESSION["lang"]);
-$contt_regist = $modelContt->getContents(5, $_SESSION["lang"]);
+$contt_error = $modelContt->getContents(0, $lang);
+$contt_regist = $modelContt->getContents(5, $lang);
+$contt_home = $modelContt->getContents(1, $lang);
+
 
 $title = $contt_regist["title"];
 
@@ -71,7 +73,7 @@ if(isset($_POST["send"])) {
         
             if(!empty($user_id)) {                 
                 $_SESSION["user_id"] = $user_id;
-                header("Location: /");
+                header("Location: /home/" . $lang );
             }
             else {
                 $support_msg = $contt_error["item_2"];

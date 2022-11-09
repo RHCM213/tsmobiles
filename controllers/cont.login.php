@@ -2,8 +2,10 @@
 
 require("models/mod.contents.php");
 $modelContt = new Contents();
-$contt_error = $modelContt->getContents(0, $_SESSION["lang"]);
-$contt_login = $modelContt->getContents(4, $_SESSION["lang"]);
+$contt_error = $modelContt->getContents(0, $lang);
+$contt_login = $modelContt->getContents(4, $lang);
+$contt_home = $modelContt->getContents(1, $lang);
+
 
 $title = $contt_login["title"];
 

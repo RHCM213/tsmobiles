@@ -1,12 +1,12 @@
         </main>
         <footer class="w3-right w3-padding-large" style="margin-top: 100px; color:#fdf5e6">
         <?php
-            if($_SESSION["lang"] == "pt"){
+            if($lang == "pt"){
                 $locale1 = "PT_pt";
                 $locale2 = "pt_PT";
               
             }
-            else if($_SESSION["lang"] == "en"){
+            else if($lang == "en"){
                 $locale1 = "GB_en";
                 $locale2 = "en_GB";
             }
@@ -16,7 +16,7 @@
             }
         ?>
             <p><time><?php setlocale(LC_ALL, "$locale1" , "$locale2"); echo ucwords(strftime("%d %B, %Y")) ?></time> |
-            <a href="/msgr" style="font-size:20px">&#9993;</a> | Top Selling Mobiles&#174;</p>            
+            <a href="/msgr/<?= $lang ?>" style="font-size:20px">&#9993;</a> | Top Selling Mobiles&#174;</p>            
         </footer> 
     </body>
 </html>

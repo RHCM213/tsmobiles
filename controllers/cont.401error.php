@@ -2,7 +2,7 @@
 
 require("models/mod.contents.php");
 $modelContt = new Contents();
-$contt_401 = $modelContt->getContents(8, $_SESSION["lang"]);
+$contt_401 = $modelContt->getContents(8, $lang);
 
 $title = $contt_401["title"];
 $alert = $contt_401["item_1"];

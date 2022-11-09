@@ -1,10 +1,12 @@
 <?php
-if(empty($_SESSION["is_admin"])) {
+if(empty($_SESSION["is_admin"]) || empty($_SESSION["user_id"])) {
     http_response_code(401);
-    header("Location: /401error");
+    header("Location: /401error/" . $lang);
 }
 
-$section=$id;
+
+$section = $url_parts[2] ?? "";
+$id = $url_parts[3] ?? "";
 
 $title = "Área Administrativa";
 
@@ -30,8 +32,11 @@ $users = $modelUsers->getUsers();
 
 require("models/mod.contents.php");   
 $modelContt = new Contents();
-$contt_home = $modelContt->getContents(1, $_SESSION["lang"]);
+$lang = "pt";
+$contt_home = $modelContt->getContents(1, $lang);
 
+
+//Section » Home
 
 if(isset($_POST["home_pic"])) {
 
@@ -70,14 +75,13 @@ if(isset($_POST["home_pic"])) {
 
 
 if(isset($_POST["home_pt"])) { 
-        
+    $lang = "pt";
+
     if(empty($_POST["tit"])) {
-        $lang = "PT";
         $_POST["tit"] = $contt_home["item_1"];
     }
 
     if(empty($_POST["txt"])) {
-        $lang = "PT";
         $_POST["txt"] = $contt_home["item_2"];
     }
 
@@ -89,6 +93,8 @@ if(isset($_POST["home_pt"])) {
     ) {
         
         $modelContt->updateTxtHome($_POST, $lang);
+        header("Location: /");
+        exit;
     }
 
     else {
@@ -96,22 +102,19 @@ if(isset($_POST["home_pt"])) {
     }
 
 }
-
-
-
 
 
 if(isset($_POST["home_en"])) {
     
-    $lang = "EN";   
+    $lang = "en";   
         
     if(empty($_POST["tit"])) {
-        $lang = "EN";
+        
         $_POST["tit"] = $contt_home["item_1"];
     }
 
     if(empty($_POST["txt"])) {
-        $lang = "EN";
+      
         $_POST["txt"] = $contt_home["item_2"];
     }
 
@@ -123,6 +126,8 @@ if(isset($_POST["home_en"])) {
     ) {
         
         $modelContt->updateTxtHome($_POST, $lang);
+        header("Location: /");
+        exit;
     }
 
     else {
@@ -130,22 +135,19 @@ if(isset($_POST["home_en"])) {
     }
 
 }
-
-
-
 
 
 if(isset($_POST["home_fr"])) {
     
-    $lang = "FR";   
+    $lang = "fr";   
         
     if(empty($_POST["tit"])) {
-        $lang = "FR";
+        
         $_POST["tit"] = $contt_home["item_1"];
     }
 
     if(empty($_POST["txt"])) {
-        $lang = "FR";
+        
         $_POST["txt"] = $contt_home["item_2"];
     }
 
@@ -166,6 +168,7 @@ if(isset($_POST["home_fr"])) {
 
 }
 
+//Section » Insert Mobiles
 
 $mobilenames = [];
 
@@ -182,7 +185,6 @@ if(isset($_POST["send_mobile"])) {
         mb_strlen($_POST["mobile_name"]) <= 60 &&
         mb_strlen($_POST["unit_sold"]) >= 1 &&
         mb_strlen($_POST["unit_sold"]) <= 99999 &&
-        //filter_var($_POST["is_smartphone"], FILTER_VALIDATE_BOOLEAN) &&
         mb_strlen($_POST["released_date"]) >= 1994 &&
         mb_strlen($_POST["released_date"]) <= 9999 &&
         mb_strlen($_POST["size"]) >= 2 &&
@@ -195,8 +197,6 @@ if(isset($_POST["send_mobile"])) {
         mb_strlen($_POST["display_inches"]) <= 8 &&
         mb_strlen($_POST["platform"]) >= 2 &&
         mb_strlen($_POST["platform"]) <= 20 &&
-        //filter_var($_POST["is_dualsim"], FILTER_VALIDATE_BOOLEAN) &&
-        //filter_var($_POST["has_cardslot"], FILTER_VALIDATE_BOOLEAN) &&
         mb_strlen($_POST["memory_rom_ram"]) >= 2 &&
         mb_strlen($_POST["memory_rom_ram"]) <= 80 &&
         mb_strlen($_POST["camera"]) == NULL ||
@@ -205,7 +205,6 @@ if(isset($_POST["send_mobile"])) {
         mb_strlen($_POST["video"]) == NULL ||
         mb_strlen($_POST["video"]) >= 2 &&
         mb_strlen($_POST["video"]) <= 80 &&
-        //filter_var($_POST["has_bluetooth"], FILTER_VALIDATE_BOOLEAN) &&
         mb_strlen($_POST["battery"]) >= 2 &&
         mb_strlen($_POST["battery"]) <= 30 &&
         $_FILES["mobile_img"]["error"] === 0 &&
@@ -214,7 +213,7 @@ if(isset($_POST["send_mobile"])) {
         $_FILES["mobile_img"]["size"] < 3 * 1024 * 1024
     
     ) {
-       
+    
         if(in_array($_POST["mobile_name"], $mobilenames) == false) { 
             
 
@@ -240,21 +239,8 @@ if(isset($_POST["send_mobile"])) {
 
 
 
+ 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
 
 
 
@@ -262,19 +248,44 @@ if(isset($_POST["send_mobile"])) {
 
 if($_SERVER["REQUEST_METHOD"] === "GET") {
 
-require("views/view.admin.php");
+    require("views/view.admin.php");
 
 }
+ //Section » Del Mobiles/Comments/Users
 
-else if($_SERVER["REQUEST_METHOD"] === "DELETE") {
-    if($model->delAdminMobiles($mobile_id)) {
-        http_response_code(202);       
+ else if($_SERVER["REQUEST_METHOD"] === "DELETE") {
+ 
+    if($section == "mobiles"){
+
+        if($model->delAdminMobiles($id)) {
+            http_response_code(202);       
+        }
+        else {
+            http_response_code(404);
+        }
     }
-    else {
-        http_response_code(404);
+
+    if($section == "comments"){
+
+        if($modelComm->delAdminComments($id)) {
+            http_response_code(202); 
+                  
+        }
+        else {
+            http_response_code(404);
+        }
     }
+    
+    if($section == "users"){
 
-
+        if($modelUsers->delAdminUsers($id)) {
+            http_response_code(202); 
+                  
+        }
+        else {
+            http_response_code(404);
+        }
+    }
 }
 else {  
     http_response_code(405);
@@ -282,4 +293,5 @@ else {
 
 }
 
+ 
 
